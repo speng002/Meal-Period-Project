@@ -1,0 +1,21 @@
+h1 {
+    font-size: 25px;
+    color: red;
+}
+
+.container {
+    border: 2px solid black;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.displayvalue {
+    height: 50px;
+    width:250px;
+    border: solid black 2px;
+}
