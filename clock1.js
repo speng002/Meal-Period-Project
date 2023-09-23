@@ -1,7 +1,7 @@
 //Live Clock
 setInterval(showTime, 1000);
 function showTime() {
-  //
+  // initialize data
   let time = new Date();
   let hour = time.getHours();
   let min = time.getMinutes();
