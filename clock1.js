@@ -35,21 +35,21 @@ hourSelect.onchange = (event) => {
   console.log({ startTime });
 };
 
-let lunch1;
+let mealPeriod1;
 console.log(hourSelect);
-const lunchinput1 = document.querySelector("#lunch1");
-lunchinput1.onchange = (event) => {
+const mealPeriodInput1 = document.querySelector("#mealPeriod1");
+mealPeriodInput1.onchange = (event) => {
   console.log(event.target.value);
-  lunch1 = event.target.value;
-  console.log({ lunch1 });
+  mealPeriod1 = event.target.value;
+  console.log({ mealPeriod1 });
 };
-let lunch2;
+let mealPeriod2;
 console.log(hourSelect);
-const lunchinput2 = document.querySelector("#lunch2");
-lunchinput2.onchange = (event) => {
+const mealPeriodInput2 = document.querySelector("#mealPeriod2");
+mealPeriodInput2.onchange = (event) => {
   console.log(event.target.value);
-  lunch2 = event.target.value;
-  console.log({ lunch2 });
+  mealPeriod2 = event.target.value;
+  console.log({ mealPeriod2 });
 };
 //Calculate button
 
@@ -58,7 +58,7 @@ const button = document.querySelector("#calculator");
 
 button.addEventListener("click", updateButton);
 
-//equation for Lunch time 1 **Update comment**
+//equation for Meal Period 1 **Update comment**
 function timeToMinutes(hours, min){
   return (60*hours) + min;
 }
@@ -73,23 +73,23 @@ function minutesToTime(min){
 
 function updateButton() {
   let startTime = document.getElementById("start_time").value;
-  let lunchTime1 = parseInt(document.getElementById("lunch1").value);
-  console.log ("updateButton: ", startTime, lunchTime1);
+  let mealPeriodTime1 = parseInt(document.getElementById("mealPeriod1").value);
+  console.log ("updateButton: ", startTime, mealPeriodTime1);
 
   
-  // equation for Lunch time 1 ITS WORKING
-  let firstLunchTime = updateTime(startTime, 4, 59);
+  // equation for Meal Period 1 ITS WORKING
+  let firstMealPeriodTime = updateTime(startTime, 4, 59);
   
-  //equation for Lunch time 2
+  //equation for Meal Period 2
   
-  let secondLunchTime = updateTime(startTime, 9, 59, lunchTime1);
+  let secondMealPeriodTime = updateTime(startTime, 9, 59, mealPeriodTime1);
 
 
   // Gets Start time value on first Display box
-  document.getElementById("lunch1answer").innerHTML = firstLunchTime;
-  // document.getElementById("lunch1answer").innerHTML = "hello time";
+  document.getElementById("mealPeriod1answer").innerHTML = firstMealPeriodTime;
+  // document.getElementById("mealPeriod1answer").innerHTML = "hello time";
   // Gets second Display Box
-  document.getElementById("lunch2answer").innerHTML = secondLunchTime;
+  document.getElementById("mealPeriod2answer").innerHTML = secondMealPeriodTime;
 
 
 }
@@ -97,7 +97,7 @@ function updateButton() {
 //Universal Time Equation
 function updateTime(initialTime, hoursAhead, minutesAhead, buffer = 0) {
   // params: initialTime (string), 
-  // returns: { lunchBreak1: string, lunchBreak2: string }
+  // returns: { mealPeriodBreak1: string, mealPeriodBreak2: string }
   console.log(initialTime);
   let hours = parseInt(initialTime.slice(0, 2));
   let minutes = parseInt(initialTime.slice(3, 5));
