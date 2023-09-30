@@ -37,17 +37,21 @@ hourSelect.onchange = (event) => {
 };
 
 // How long did you take your first meal Period
-let mealPeriod1;
+// Anything else than 30 Spits extra digits for Hours Display
+let mealPeriod1 = 30;
 const mealPeriodInput1 = document.querySelector("#mealPeriod1");
 mealPeriodInput1.onchange = (event) => {
   mealPeriod1 = event.target.value;
 };
-let mealPeriod2;
+
+// Anything else than 30 Spits extra digits for Hours Display
+let mealPeriod2 = 30;
 const mealPeriodInput2 = document.querySelector("#mealPeriod2");
 mealPeriodInput2.onchange = (event) => {
   mealPeriod2 = event.target.value;
 };
 
+// This works
 let buffer = 0;
 const bufferInput = document.querySelector("#buffer");
 bufferInput.onchange = (event) => {
@@ -86,18 +90,27 @@ function updateButton() {
   
   //equation for Meal Period 2
   // Start time + 9:59 + mealPeriod1 - buffer
-  //let secondMealPeriodTime = updateTime(startTime, 9, 59, mealPeriodTime1);
+  // Fix mealPeriod1 (What is the type?) FIXED I need to prefix the value to 30 min
+  let secondMealPeriodTime = timeToNumber(startTime) + timeToNumber('09:59') + mealPeriod1 - buffer;
 
   //Equation for twelfthHour
-  // STart time + 12 + mealPeriod1 + mealPeriod2
-  //let twelfthHourTime = updateTime();
+  // Start time + 12 + mealPeriod1 + mealPeriod2
+  // mealPeriod1 & mealPeriod2 is spitting N/A (FIXED I need to prefix the value to 30 min)
+  let twelfthHourTime = timeToNumber(startTime) + timeToNumber('12:00') + mealPeriod1 + mealPeriod2;
+  
+  //FOR ALL DISPLAYS, x:00 - x:10 Breaks code
+
   // Gets Start time value on first Display box
-  document.getElementById("mealPeriod1answer").innerHTML = minutesToTimeFormat(firstMealPeriodTime);
+  document.getElementById("mealPeriod1Answer").innerHTML = minutesToTimeFormat(firstMealPeriodTime);
   // document.getElementById("mealPeriod1answer").innerHTML = "hello time";
+ 
   // Gets second Display Box
-  document.getElementById("mealPeriod2answer").innerHTML = secondMealPeriodTime;
+  // WHY DO I LOSE 1 DIGIT?
+  document.getElementById("mealPeriod2Answer").innerHTML = minutesToTimeFormat(secondMealPeriodTime);
 
-
+  // Gets 3rd Display box
+  // WHY DO I LOSE 1 DIGIT?
+  document.getElementById("mealPeriod3Answer").innerHTML = minutesToTimeFormat(twelfthHourTime);
 }
 
 // type text '01:13' -> 73 type number
@@ -130,7 +143,23 @@ function minutesToTimeFormat(m) {
     hconvert -= 12;
   }
 
+  // idk if this will break it
+  // if (mconvert >=60) {
+  //   mconvert -=60;
+  // }
+
+// If minutes is less than 10, Add a "0" in front (It kinda works...)
+// How would I make it work with both hours and Minutes Display
+// Start Time 7:35 breaks code too
+if (mconvert && hconvert < 10) {
+  return "0" + hconvert.toString() + ':' + "0" + mconvert.toString() + ' ' + amOrPm;
+} else if (mconvert < 10) {
+  return hconvert.toString() + ':' + "0" + mconvert.toString() + ' ' + amOrPm;
+} else if (hconvert < 10) {
+  return "0" + hconvert.toString() + ':' + mconvert.toString() + ' ' + amOrPm;
+} else {
   return hconvert.toString() + ':' + mconvert.toString() + ' ' + amOrPm;
+}
 }
 
 // //Universal Time Equation
