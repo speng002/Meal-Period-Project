@@ -26,7 +26,8 @@ function showTime() {
 showTime();
 //input test vaughan
 
-let startTime;
+// Lets you input your start time 
+let startTime="07:13";
 const hourSelect = document.querySelector("#start_time");
 hourSelect.onchange = (event) => {
   console.log(event.target.value);
@@ -35,22 +36,24 @@ hourSelect.onchange = (event) => {
   console.log({ startTime });
 };
 
+// How long did you take your first meal Period
 let mealPeriod1;
-console.log(hourSelect);
 const mealPeriodInput1 = document.querySelector("#mealPeriod1");
 mealPeriodInput1.onchange = (event) => {
-  console.log(event.target.value);
   mealPeriod1 = event.target.value;
-  console.log({ mealPeriod1 });
 };
 let mealPeriod2;
-console.log(hourSelect);
 const mealPeriodInput2 = document.querySelector("#mealPeriod2");
 mealPeriodInput2.onchange = (event) => {
-  console.log(event.target.value);
   mealPeriod2 = event.target.value;
-  console.log({ mealPeriod2 });
 };
+
+let buffer = 0;
+const bufferInput = document.querySelector("#buffer");
+bufferInput.onchange = (event) => {
+  buffer = event.target.value;
+};
+
 //Calculate button
 
 let calculator;
@@ -58,7 +61,6 @@ const button = document.querySelector("#calculator");
 
 button.addEventListener("click", updateButton);
 
-//equation for Meal Period 1 **Update comment**
 function timeToMinutes(hours, min){
   return (60*hours) + min;
 }
@@ -70,23 +72,27 @@ function minutesToTime(min){
   return `${h}:${m}`;
 }
 
+function minutesToHours(minutes) {
+  const hours = (minutes / 60)
+  return;
+}
 
+// Calculates for the 3 Display boxes
 function updateButton() {
-  let startTime = document.getElementById("start_time").value;
-  let mealPeriodTime1 = parseInt(document.getElementById("mealPeriod1").value);
-  console.log ("updateButton: ", startTime, mealPeriodTime1);
-
-  
   // equation for Meal Period 1 ITS WORKING
-  let firstMealPeriodTime = updateTime(startTime, 4, 59);
+  // Start time + 4:59 - Buffer
+
+  let firstMealPeriodTime = timeToNumber(startTime) + timeToNumber('04:59') - buffer;
   
   //equation for Meal Period 2
-  
-  let secondMealPeriodTime = updateTime(startTime, 9, 59, mealPeriodTime1);
+  // Start time + 9:59 + mealPeriod1 - buffer
+  //let secondMealPeriodTime = updateTime(startTime, 9, 59, mealPeriodTime1);
 
-
+  //Equation for twelfthHour
+  // STart time + 12 + mealPeriod1 + mealPeriod2
+  //let twelfthHourTime = updateTime();
   // Gets Start time value on first Display box
-  document.getElementById("mealPeriod1answer").innerHTML = firstMealPeriodTime;
+  document.getElementById("mealPeriod1answer").innerHTML = minutesToTimeFormat(firstMealPeriodTime);
   // document.getElementById("mealPeriod1answer").innerHTML = "hello time";
   // Gets second Display Box
   document.getElementById("mealPeriod2answer").innerHTML = secondMealPeriodTime;
@@ -94,44 +100,74 @@ function updateButton() {
 
 }
 
-//Universal Time Equation
-function updateTime(initialTime, hoursAhead, minutesAhead, buffer = 0) {
-  // params: initialTime (string), 
-  // returns: { mealPeriodBreak1: string, mealPeriodBreak2: string }
-  console.log(initialTime);
-  let hours = parseInt(initialTime.slice(0, 2));
-  let minutes = parseInt(initialTime.slice(3, 5));
+// type text '01:13' -> 73 type number
+function timeToNumber(time) {
+  let h = parseInt(time.slice(0, 2));
+  let m = parseInt(time.slice(3, 5));
+  return h*60 + m;
+}
+
+// minutes to "xx:xx"
+// Minutes/60 + (residual= minutes) *Need to convert from Number to string* *How to add strings together* *Add AM PM*
+
+// convert min to hours
+// If hours > 12, subtract 12 and use PM
+// otherwise use AM **Look at this very closely**
+function minutesToTimeFormat(m) {
+  let hconvert = Math.floor(m/60);
+  let mconvert = m % 60;
+  let amOrPm = 'AM';
+
+  if (hconvert >= 24) {
+    hconvert -= 24;
+  }
+
+  if (hconvert >= 12) {
+    amOrPm = 'PM';
+  }
+
+  if (hconvert >= 13) {
+    hconvert -= 12;
+  }
+
+  return hconvert.toString() + ':' + mconvert.toString() + ' ' + amOrPm;
+}
+
+// //Universal Time Equation
+// function updateTime(initialTime, hoursAhead, minutesAhead, buffer = 0) {
+//   // params: initialTime (string), 
+//   // returns: { mealPeriodBreak1: string, mealPeriodBreak2: string }
+//   console.log(initialTime);
+//   let hours = parseInt(initialTime.slice(0, 2));
+//   let minutes = parseInt(initialTime.slice(3, 5));
   
-  let t1Min = timeToMinutes(hours,minutes);
-  let t2Min = timeToMinutes(4,59);
+//   let t1Min = timeToMinutes(hours,minutes);
+//   let t2Min = timeToMinutes(4,59);
 
-  let res = minutesToTime (t1Min + t2Min);
+//   let res = minutesToTime (t1Min + t2Min);
 
 
-  let totalMinutes = (hours*60) + minutes;
+//   let totalMinutes = (hours*60) + minutes;
 
-  console.log("RES: " + typeof res);
+//   console.log("RES: " + typeof res);
 
-  //convert totalMinutes to Hours in decimal
+//   //convert totalMinutes to Hours in decimal
 
-  console.log({ initialTime, hours, minutes, totalMinutes });
+//   console.log({ initialTime, hours, minutes, totalMinutes });
 
-  // For people who start work at night
-  if (hours >= 24) {
-    hours -= 24;
-  }
+//   // For people who start work at night
+//   if (hours >= 24) {
+//     hours -= 24;
+//   }
 
-  // *NOT WORKING* Adds AM/PM 
-  if (hours >= 12) {
-    let period = hours >= 12 ? "PM" : "AM";
+//   // *NOT WORKING* Adds AM/PM 
+//   if (hours >= 12) {
+//     let period = hours >= 12 ? "PM" : "AM";
 
-    let newTime = `${hours}:${minutes} ${period}`;
-    return newTime;
-  }
-  return res;
-}
+//     let newTime = `${hours}:${minutes} ${period}`;
+//     return newTime;
+//   }
+//   return res;
+// }
 
-function minutesToHours(minutes) {
-  const hours = (minutes / 60)
-  return;
-}
+
