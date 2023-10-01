@@ -38,14 +38,15 @@ hourSelect.onchange = (event) => {
 
 // How long did you take your first meal Period
 // Anything else than 30 Spits extra digits for Hours Display
-let mealPeriod1 = 0;
+let mealPeriod1 = 30;
 const mealPeriodInput1 = document.querySelector("#mealPeriod1");
 mealPeriodInput1.onchange = (event) => {
   mealPeriod1 = event.target.value;
 };
 
 // Anything else than 30 Spits extra digits for Hours Display
-let mealPeriod2 = 0;
+// value on js works. If you input your own value, it spits extra numbers
+let mealPeriod2 = 30;
 const mealPeriodInput2 = document.querySelector("#mealPeriod2");
 mealPeriodInput2.onchange = (event) => {
   mealPeriod2 = event.target.value;
@@ -83,22 +84,17 @@ function minutesToHours(minutes) {
 
 // Calculates for the 3 Display boxes
 function updateButton() {
-  // equation for Meal Period 1 ITS WORKING
+// parseInt works! How come buffer doesn't need it?
   // Start time + 4:59 - Buffer
-
   let firstMealPeriodTime = timeToNumber(startTime) + timeToNumber('04:59') - buffer;
   
   //equation for Meal Period 2
   // Start time + 9:59 + mealPeriod1 - buffer
-  // Fix mealPeriod1 (What is the type?) FIXED I need to prefix the value to 30 min
-  let secondMealPeriodTime = timeToNumber(startTime) + timeToNumber('09:59') + mealPeriod1 - buffer;
+  let secondMealPeriodTime = timeToNumber(startTime) + timeToNumber('09:59') + parseInt(mealPeriod1) - buffer;
 
   //Equation for twelfthHour
   // Start time + 12 + mealPeriod1 + mealPeriod2
-  // mealPeriod1 & mealPeriod2 is spitting N/A (FIXED I need to prefix the value to 30 min)
-  let twelfthHourTime = timeToNumber(startTime) + timeToNumber('12:00') + mealPeriod1 + mealPeriod2;
-  
-  //FOR ALL DISPLAYS, x:00 - x:10 Breaks code
+  let twelfthHourTime = timeToNumber(startTime) + timeToNumber('12:00') + parseInt(mealPeriod1) + parseInt(mealPeriod2);
 
   // Gets Start time value on first Display box
   document.getElementById("mealPeriod1Answer").innerHTML = minutesToTimeFormat(firstMealPeriodTime);
@@ -127,32 +123,32 @@ function timeToNumber(time) {
 // If hours > 12, subtract 12 and use PM
 // otherwise use AM **Look at this very closely**
 function minutesToTimeFormat(m) {
-  let hconvert = Math.floor(m/60);
-  let mconvert = m % 60;
+  let hConvert = Math.floor(m/60);
+  let mConvert = m % 60;
   let amOrPm = 'AM';
 
-  if (hconvert >= 24) {
+  if (hConvert >= 24) {
     hconvert -= 24;
   }
 
-  if (hconvert >= 12) {
+  if (hConvert >= 12) {
     amOrPm = 'PM';
   }
 
-  if (hconvert >= 13) {
-    hconvert -= 12;
+  if (hConvert >= 13) {
+    hConvert -= 12;
   }
 
 // idk if this is will work, but I'm looking at my live clock
 // This adds a "0" in front if Hour or Min less than 10 *THIS DID THE TRICK, BUT I DONT UNDERSTAND IT*
-  hconvert = hconvert < 10 ? "0" + hconvert : hconvert;
-  mconvert = mconvert < 10 ? "0" + mconvert : mconvert;
+  hConvert = hConvert < 10 ? "0" + hConvert : hConvert;
+  mConvert = mConvert < 10 ? "0" + mConvert : mConvert;
 
 // If minutes is less than 10, Add a "0" in front (It kinda works...)
 // How would I make it work with both hours and Minutes Display
 // Start Time 7:35 breaks code too
 
-  return hconvert.toString() + ':' + mconvert.toString() + ' ' + amOrPm;
+  return hConvert.toString() + ':' + mConvert.toString() + ' ' + amOrPm;
 }
 
 // //Universal Time Equation
