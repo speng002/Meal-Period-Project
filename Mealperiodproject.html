@@ -13,6 +13,7 @@
   <div class="container">
     <div id="clock">8:10:45</div>
   </div>
+  <div>
   Start time: <input type="time" id="start_time" value="07:13" required></input>
   <!-- Took out "required" -->
   <!-- Something in Meal Period 1/2 in breaking -->
@@ -21,11 +22,13 @@
   Meal Period 2: <input type="number" value="30" id="mealPeriod2"></input>
   Buffer time: <input type="number" value="0" id="buffer"></input>
   <button onclick={updateButton()} type="button" id="calculator">Submit</button>
+</div>
+<div>
   <!-- Displays what time you will need to take your Meal Period -->
   Take Meal Period 1: <div class="displayvalue" id="mealPeriod1Answer">xxxx</div>
   Take Meal Period 2: <div class="displayvalue" id="mealPeriod2Answer">xxxx</div>
   12th Hour: <div class="displayvalue" id="mealPeriod3Answer">xxxx</div>
-
+</div>
   <script src="clock1.js"></script>
 </body>
 
