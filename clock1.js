@@ -38,14 +38,14 @@ hourSelect.onchange = (event) => {
 
 // How long did you take your first meal Period
 // Anything else than 30 Spits extra digits for Hours Display
-let mealPeriod1 = 30;
+let mealPeriod1 = 0;
 const mealPeriodInput1 = document.querySelector("#mealPeriod1");
 mealPeriodInput1.onchange = (event) => {
   mealPeriod1 = event.target.value;
 };
 
 // Anything else than 30 Spits extra digits for Hours Display
-let mealPeriod2 = 30;
+let mealPeriod2 = 0;
 const mealPeriodInput2 = document.querySelector("#mealPeriod2");
 mealPeriodInput2.onchange = (event) => {
   mealPeriod2 = event.target.value;
@@ -143,23 +143,16 @@ function minutesToTimeFormat(m) {
     hconvert -= 12;
   }
 
-  // idk if this will break it
-  // if (mconvert >=60) {
-  //   mconvert -=60;
-  // }
+// idk if this is will work, but I'm looking at my live clock
+// This adds a "0" in front if Hour or Min less than 10 *THIS DID THE TRICK, BUT I DONT UNDERSTAND IT*
+  hconvert = hconvert < 10 ? "0" + hconvert : hconvert;
+  mconvert = mconvert < 10 ? "0" + mconvert : mconvert;
 
 // If minutes is less than 10, Add a "0" in front (It kinda works...)
 // How would I make it work with both hours and Minutes Display
 // Start Time 7:35 breaks code too
-if (mconvert && hconvert < 10) {
-  return "0" + hconvert.toString() + ':' + "0" + mconvert.toString() + ' ' + amOrPm;
-} else if (mconvert < 10) {
-  return hconvert.toString() + ':' + "0" + mconvert.toString() + ' ' + amOrPm;
-} else if (hconvert < 10) {
-  return "0" + hconvert.toString() + ':' + mconvert.toString() + ' ' + amOrPm;
-} else {
+
   return hconvert.toString() + ':' + mconvert.toString() + ' ' + amOrPm;
-}
 }
 
 // //Universal Time Equation
