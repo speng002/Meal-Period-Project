@@ -37,14 +37,12 @@ hourSelect.onchange = (event) => {
 };
 
 // How long did you take your first meal Period
-// Anything else than 30 Spits extra digits for Hours Display
 let mealPeriod1 = 30;
 const mealPeriodInput1 = document.querySelector("#mealPeriod1");
 mealPeriodInput1.onchange = (event) => {
   mealPeriod1 = event.target.value;
 };
 
-// Anything else than 30 Spits extra digits for Hours Display
 // value on js works. If you input your own value, it spits extra numbers
 let mealPeriod2 = 30;
 const mealPeriodInput2 = document.querySelector("#mealPeriod2");

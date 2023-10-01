@@ -14,13 +14,12 @@
     <div id="clock">8:10:45</div>
   </div>
   <div>
-  Start time: <input type="time" id="start_time" value="07:13" required></input>
+  Start time: <input type="time" id="start_time" value="07:13" class="userinputbox" required></input>
   <!-- Took out "required" -->
-  <!-- Something in Meal Period 1/2 in breaking -->
   <!-- Eventually value should be 30-60 -->
-  Meal Period 1: <input type="number" value="30" id="mealPeriod1"></input>
-  Meal Period 2: <input type="number" value="30" id="mealPeriod2"></input>
-  Buffer time: <input type="number" value="0" id="buffer"></input>
+  Meal Period 1: <input type="number" value="30" min="30" max="60" id="mealPeriod1" class="userinputbox" required></input>
+  Meal Period 2: <input type="number" value="30" min="30" max="60" id="mealPeriod2" class="userinputbox" required></input>
+  Buffer time: <input type="number" value="0" id="buffer" class="userinputbox"></input>
   <button onclick={updateButton()} type="button" id="calculator">Submit</button>
 </div>
 <div>
