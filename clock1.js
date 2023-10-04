@@ -40,21 +40,21 @@ hourSelect.onchange = (event) => {
 let mealPeriod1 = 30;
 const mealPeriodInput1 = document.querySelector("#mealPeriod1");
 mealPeriodInput1.onchange = (event) => {
-  mealPeriod1 = event.target.value;
+  mealPeriod1 = parseInt(event.target.value);
 };
 
 // value on js works. If you input your own value, it spits extra numbers
 let mealPeriod2 = 30;
 const mealPeriodInput2 = document.querySelector("#mealPeriod2");
 mealPeriodInput2.onchange = (event) => {
-  mealPeriod2 = event.target.value;
+  mealPeriod2 = parseInt(event.target.value);
 };
 
 // This works
 let buffer = 0;
 const bufferInput = document.querySelector("#buffer");
 bufferInput.onchange = (event) => {
-  buffer = event.target.value;
+  buffer = parseInt(event.target.value);
 };
 
 //Calculate button
@@ -88,11 +88,11 @@ function updateButton() {
   
   //equation for Meal Period 2
   // Start time + 9:59 + mealPeriod1 - buffer
-  let secondMealPeriodTime = timeToNumber(startTime) + timeToNumber('09:59') + parseInt(mealPeriod1) - buffer;
+  let secondMealPeriodTime = timeToNumber(startTime) + timeToNumber('09:59') + mealPeriod1 - buffer;
 
   //Equation for twelfthHour
   // Start time + 12 + mealPeriod1 + mealPeriod2
-  let twelfthHourTime = timeToNumber(startTime) + timeToNumber('12:00') + parseInt(mealPeriod1) + parseInt(mealPeriod2);
+  let twelfthHourTime = timeToNumber(startTime) + timeToNumber('12:00') + mealPeriod1 + mealPeriod2;
 
   // Gets Start time value on first Display box
   document.getElementById("mealPeriod1Answer").innerHTML = minutesToTimeFormat(firstMealPeriodTime);
@@ -126,7 +126,7 @@ function minutesToTimeFormat(m) {
   let amOrPm = 'AM';
 
   if (hConvert >= 24) {
-    hconvert -= 24;
+    hConvert -= 24;
   }
 
   if (hConvert >= 12) {
@@ -137,6 +137,11 @@ function minutesToTimeFormat(m) {
     hConvert -= 12;
   }
 
+  // In case if 00:00, Display as 12 AM
+  if (hConvert === 0) {
+    hConvert = 12;
+  }
+
 // idk if this is will work, but I'm looking at my live clock
 // This adds a "0" in front if Hour or Min less than 10 *THIS DID THE TRICK, BUT I DONT UNDERSTAND IT*
   hConvert = hConvert < 10 ? "0" + hConvert : hConvert;
@@ -144,7 +149,7 @@ function minutesToTimeFormat(m) {
 
 // If minutes is less than 10, Add a "0" in front (It kinda works...)
 // How would I make it work with both hours and Minutes Display
-// Start Time 7:35 breaks code too
+// Start Time 7:35 breaks code too new comment 
 
   return hConvert.toString() + ':' + mConvert.toString() + ' ' + amOrPm;
 }
