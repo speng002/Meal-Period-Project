@@ -114,6 +114,7 @@ function timeToNumber(time) {
   return h*60 + m;
 }
 
+
 // minutes to "xx:xx"
 // Minutes/60 + (residual= minutes) *Need to convert from Number to string* *How to add strings together* *Add AM PM*
 
@@ -124,6 +125,22 @@ function minutesToTimeFormat(m) {
   let hConvert = Math.floor(m/60);
   let mConvert = m % 60;
   let amOrPm = 'AM';
+
+//Greg Showed me switch 
+  // switch (true){
+  //   case hConvert >=24:
+  //     hConvert -= 24;
+  //     break;
+  //   case hConvert >=12:
+  //       amOrPm = 'PM';
+  //       break;
+  //   case hConvert >=13:
+  //        hConvert -= 12;
+  //       break;
+  //   case hConvert === 0:
+  //     hConvert = 12;
+  //     break;    
+  // }
 
   if (hConvert >= 24) {
     hConvert -= 24;

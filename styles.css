@@ -1,25 +1,47 @@
 h1 {
+    font-family: arial;
     font-size: 25px;
-    color: red;
+    margin-bottom: 0;
+    background-color: red;
 }
 
 .container {
-    border: 2px solid black;
-    width: 100%;
+    width: 460px;
     height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
+    font-size: 60px;
+    font-family: arial;
+    margin: 1rem auto;
+    background-color: red;
+}
+
+body {
+    width: 80%;
+    margin: auto;
 }
 
 .displayvalue {
     height: 50px;
-    width:250px;
+    width: 250px;
     border: solid black 2px;
+}
+
+.displaycollection {
+    display: flex;
+    margin-bottom: 1rem;
+    justify-content: space-between;
 }
 
 .userinputbox {
     background-color: yellow;
+    display: block;
+    margin-right: 0.5rem;
+}
+
+.inputcollection {
+    display: flex;
+    justify-content: space-between;
 }
