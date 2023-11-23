@@ -27,6 +27,8 @@ body {
     height: 50px;
     width: 250px;
     border: solid black 2px;
+    text-align: center;
+    margin: auto;
 }
 
 .displaycollection {
@@ -43,5 +45,6 @@ body {
 
 .inputcollection {
     display: flex;
+    
     justify-content: space-between;
 }
